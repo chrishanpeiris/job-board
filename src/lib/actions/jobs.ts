@@ -3,9 +3,7 @@
 // ─── Job Server Actions ───────────────────────────────────────────────────────
 // Demonstrates: Server Actions, Prisma query building, revalidatePath.
 
-import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/db';
-import { getSession } from '@/lib/auth';
 import type { Job, JobFilters, JobSortKey } from '@/types';
 
 function mapJob(j: any): Job {  // eslint-disable-line @typescript-eslint/no-explicit-any

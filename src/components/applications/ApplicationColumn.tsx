@@ -16,7 +16,7 @@ interface ApplicationColumnProps {
 }
 
 export function ApplicationColumn({
-  status, label, applications, onMove, onUpdateNotes, onRemove, colorClass,
+  status: _status, label, applications, onMove, onUpdateNotes, onRemove, colorClass,
 }: ApplicationColumnProps) {
   return (
     <div className="flex w-72 flex-shrink-0 flex-col rounded-xl bg-gray-50 dark:bg-gray-800/50">

@@ -32,7 +32,7 @@ const REMOTE_OPTIONS = [
 ];
 
 export function JobFilters({
-  filters, onSearch, onType, onRemote, onLocation, onSort, onReset,
+  filters, onSearch: _onSearch, onType, onRemote, onLocation, onSort, onReset,
 }: JobFiltersProps) {
   const isFiltered =
     filters.search || filters.type || filters.remote !== null || filters.location;

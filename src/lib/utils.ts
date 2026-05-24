@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]): string {
 }
 
 /** Format a salary number into a human-readable string */
-export function formatSalary(amount: number | null, type?: string): string {
+export function formatSalary(amount: number | null, _type?: string): string {
   if (amount === null) return '';
   // Hourly (CONTRACT / INTERNSHIP with small amounts)
   if (amount < 1000) return `$${amount}/hr`;

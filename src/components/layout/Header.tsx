@@ -15,6 +15,7 @@ const NAV_LINKS = [
   { href: '/jobs',         label: 'Browse Jobs' },
   { href: '/saved',        label: 'Saved',        auth: true },
   { href: '/applications', label: 'Applications',  auth: true },
+  { href: '/demo',         label: '⚛️ Demo' },
 ];
 
 export function Header() {
