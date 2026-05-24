@@ -4,6 +4,7 @@
 // Demonstrates: useContext (Auth + Theme), conditional rendering based on auth
 // state, and Next.js Link-based navigation.
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
@@ -22,6 +23,12 @@ export function Header() {
   const { user, logout, loading } = useAuth();
   const { resolvedTheme, toggleTheme } = useTheme();
   const pathname = usePathname();
+
+  // Avoid hydration mismatch: server always renders 'light' because
+  // window.matchMedia is unavailable during SSR. Defer the icon until
+  // after the first client render so both sides agree.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
 
   return (
     <header className="sticky top-0 z-40 border-b border-gray-200 bg-white/90 backdrop-blur dark:border-gray-700 dark:bg-gray-900/90">
@@ -51,13 +58,13 @@ export function Header() {
 
         {/* Right side */}
         <div className="flex items-center gap-2">
-          {/* Theme toggle */}
+          {/* Theme toggle — rendered only after mount to avoid SSR/client mismatch */}
           <button
             onClick={toggleTheme}
             className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
             aria-label="Toggle theme"
           >
-            {resolvedTheme === 'dark' ? '☀️' : '🌙'}
+            {mounted ? (resolvedTheme === 'dark' ? '☀️' : '🌙') : '🌙'}
           </button>
 
           {!loading && (
