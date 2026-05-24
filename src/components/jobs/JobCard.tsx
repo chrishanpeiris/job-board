@@ -5,11 +5,11 @@
 // optimisation, and compound component pattern.
 
 import { memo, useCallback } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { formatSalaryRange, timeAgo } from '@/lib/utils';
 import { JobTypeBadge, Badge } from '@/components/ui/Badge';
+import { CompanyLogo } from '@/components/ui/CompanyLogo';
 import { useBookmarks } from '@/hooks/useBookmarks';
 import type { Job } from '@/types';
 
@@ -47,21 +47,7 @@ export const JobCard = memo(function JobCard({ job, compact, className }: JobCar
       {/* Header */}
       <div className="flex items-start gap-4">
         {/* Company logo */}
-        <div className="relative h-12 w-12 flex-shrink-0 overflow-hidden rounded-lg border border-gray-100 bg-gray-50 dark:border-gray-600 dark:bg-gray-700">
-          {job.company.logo ? (
-            <Image
-              src={job.company.logo}
-              alt={`${job.company.name} logo`}
-              fill
-              className="object-contain p-1"
-              sizes="48px"
-            />
-          ) : (
-            <span className="flex h-full w-full items-center justify-center text-xl font-bold text-gray-400">
-              {job.company.name[0]}
-            </span>
-          )}
-        </div>
+        <CompanyLogo name={job.company.name} logo={job.company.logo} size={48} />
 
         {/* Title + company */}
         <div className="min-w-0 flex-1">

@@ -4,11 +4,11 @@
 
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import Image from 'next/image';
 import Link from 'next/link';
 import { getJob } from '@/lib/actions/jobs';
 import { Badge, JobTypeBadge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
+import { CompanyLogo } from '@/components/ui/CompanyLogo';
 import { formatSalaryRange, timeAgo } from '@/lib/utils';
 
 interface Props {
@@ -38,11 +38,7 @@ export default async function JobDetailPage({ params }: Props) {
       <article className="rounded-2xl border border-gray-200 bg-white p-8 dark:border-gray-700 dark:bg-gray-800">
         {/* Header */}
         <div className="flex items-start gap-5">
-          {job.company.logo && (
-            <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-xl border border-gray-100 bg-gray-50 dark:border-gray-600 dark:bg-gray-700">
-              <Image src={job.company.logo} alt={job.company.name} fill className="object-contain p-1" sizes="64px" />
-            </div>
-          )}
+          <CompanyLogo name={job.company.name} logo={job.company.logo} size={64} className="rounded-xl" />
           <div>
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{job.title}</h1>
             <p className="mt-1 text-gray-500 dark:text-gray-400">
