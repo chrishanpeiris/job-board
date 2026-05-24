@@ -11,6 +11,15 @@ interface BookmarkState {
   /** Set of bookmarked job IDs */
   bookmarkedIds: Set<string>;
 
+  /**
+   * True after the persist middleware has rehydrated from localStorage.
+   * Use this to avoid SSR/client hydration mismatches: on the server the
+   * store always starts empty, so components must treat bookmark state as
+   * unknown until _hasHydrated is true.
+   */
+  _hasHydrated: boolean;
+  _setHasHydrated: (v: boolean) => void;
+
   // Actions
   bookmark:    (jobId: string) => void;
   unbookmark:  (jobId: string) => void;
@@ -25,6 +34,9 @@ export const useBookmarkStore = create<BookmarkState>()(
   persist(
     (set, get) => ({
       bookmarkedIds: new Set<string>(),
+
+      _hasHydrated: false,
+      _setHasHydrated: (v) => set({ _hasHydrated: v }),
 
       bookmark: (jobId) =>
         set((state) => ({ bookmarkedIds: new Set([...state.bookmarkedIds, jobId]) })),
@@ -47,6 +59,11 @@ export const useBookmarkStore = create<BookmarkState>()(
     }),
     {
       name: 'job-board-bookmarks',
+      // Called after persist has finished reading from storage.
+      // Flipping _hasHydrated lets components know it's safe to trust isBookmarked.
+      onRehydrateStorage: () => (state) => {
+        state?._setHasHydrated(true);
+      },
       // Zustand persist serialises to JSON; Set → Array → Set
       storage: {
         getItem: (key) => {
@@ -74,3 +91,4 @@ export const useBookmarkStore = create<BookmarkState>()(
 export const selectBookmarkedIds = (s: BookmarkState) => s.bookmarkedIds;
 export const selectToggle        = (s: BookmarkState) => s.toggle;
 export const selectIsBookmarked  = (s: BookmarkState) => s.isBookmarked;
+export const selectHasHydrated   = (s: BookmarkState) => s._hasHydrated;

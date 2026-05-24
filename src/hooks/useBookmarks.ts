@@ -3,16 +3,19 @@
 // demonstrating selector-based subscriptions (components only re-render when
 // their slice of state changes).
 
-import { useBookmarkStore, selectIsBookmarked, selectToggle } from '@/store/bookmarkStore';
+import { useBookmarkStore, selectIsBookmarked, selectToggle, selectHasHydrated } from '@/store/bookmarkStore';
 
 export function useBookmarks(jobId: string) {
-  // Fine-grained selectors — this component re-renders ONLY when this job's
-  // bookmark status changes, not on every unrelated store update.
+  // Wait for persist middleware to rehydrate from localStorage before trusting
+  // isBookmarked. Without this guard the server (empty store) and client
+  // (rehydrated store) disagree on the first render → React hydration error.
+  const hasHydrated  = useBookmarkStore(selectHasHydrated);
   const isBookmarked = useBookmarkStore(selectIsBookmarked)(jobId);
   const toggle       = useBookmarkStore(selectToggle);
 
   return {
-    isBookmarked,
+    // Return false until localStorage has been read — matches what the server rendered.
+    isBookmarked: hasHydrated && isBookmarked,
     toggle: () => toggle(jobId),
   };
 }
