@@ -38,14 +38,16 @@ function resolveTheme(theme: Theme): 'light' | 'dark' {
 // ── Provider ──────────────────────────────────────────────────────────────────
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>('system');
+  const [theme, setThemeState] = useState<Theme>('dark');
 
-  // Hydrate from localStorage on mount (avoids SSR mismatch)
+  // Hydrate from localStorage on mount. Falls back to 'dark' (not 'system')
+  // so new visitors always get dark mode rather than inheriting OS preference.
   useEffect(() => {
     const saved = localStorage.getItem('theme') as Theme | null;
     if (saved && ['light', 'dark', 'system'].includes(saved)) {
       setThemeState(saved);
     }
+    // No else branch — initial state is already 'dark', which is what we want.
   }, []);
 
   // Apply class to <html> whenever resolved theme changes
