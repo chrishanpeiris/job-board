@@ -9,6 +9,7 @@ import { getJob } from '@/lib/actions/jobs';
 import { Badge, JobTypeBadge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { CompanyLogo } from '@/components/ui/CompanyLogo';
+import { ApplyButton } from '@/components/jobs/ApplyButton';
 import { formatSalaryRange, timeAgo } from '@/lib/utils';
 
 interface Props {
@@ -100,7 +101,7 @@ export default async function JobDetailPage({ params }: Props) {
 
         {/* CTA */}
         <div className="mt-10 flex gap-3">
-          <Button size="lg">Apply now</Button>
+          <ApplyButton jobId={job.id} />
           <Button variant="secondary" size="lg">Save job</Button>
         </div>
       </article>

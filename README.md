@@ -4,27 +4,27 @@ A full-stack job board application built with Next.js 14, TypeScript, and Prisma
 
 ## Tech Stack
 
-| Layer         | Choice                                |
-|---------------|---------------------------------------|
-| Framework     | Next.js 14 (App Router)               |
-| Language      | TypeScript (strict)                   |
-| Styling       | Tailwind CSS                          |
-| Database      | SQLite + Prisma ORM                   |
-| Auth          | JWT (jose) + httpOnly cookies         |
-| State (client)| TanStack Query v5 + Zustand v5        |
-| Tests (unit)  | Vitest + React Testing Library        |
-| Tests (e2e)   | Playwright                            |
+| Layer          | Choice                         |
+| -------------- | ------------------------------ |
+| Framework      | Next.js 14 (App Router)        |
+| Language       | TypeScript (strict)            |
+| Styling        | Tailwind CSS                   |
+| Database       | SQLite + Prisma ORM            |
+| Auth           | JWT (jose) + httpOnly cookies  |
+| State (client) | TanStack Query v5 + Zustand v5 |
+| Tests (unit)   | Vitest + React Testing Library |
+| Tests (e2e)    | Playwright                     |
 
 ## React/TypeScript concepts demonstrated
 
-1. **Hooks** — `useState`, `useEffect`, `useReducer`, `useCallback`, `useMemo`, `useRef`, custom hooks
-2. **Advanced patterns** — HOC (`withAuth`), render props, compound components, Portal (`Modal`)
-3. **Performance** — `React.memo`, fine-grained Zustand selectors, debounced search, `keepPreviousData`
-4. **Context** — `AuthContext`, `ThemeContext` (dark mode + system preference)
-5. **TypeScript** — discriminated unions, generic hooks, `forwardRef`, strict typing throughout
-6. **RSC & Server Actions** — Server Components, `generateMetadata`, `notFound()`, Server Actions with auth guard
-7. **Streaming** — `Suspense` + `loading.tsx` + `error.tsx` boundaries
-8. **TDD** — tests written alongside hooks and components; 51 unit tests passing
+1. **Hooks** : `useState`, `useEffect`, `useReducer`, `useCallback`, `useMemo`, `useRef`, custom hooks
+2. **Advanced patterns** : HOC (`withAuth`), render props, compound components, Portal (`Modal`)
+3. **Performance** : `React.memo`, fine-grained Zustand selectors, debounced search, `keepPreviousData`
+4. **Context** : `AuthContext`, `ThemeContext` (dark mode + system preference)
+5. **TypeScript** : discriminated unions, generic hooks, `forwardRef`, strict typing throughout
+6. **RSC & Server Actions** : Server Components, `generateMetadata`, `notFound()`, Server Actions with auth guard
+7. **Streaming** : `Suspense` + `loading.tsx` + `error.tsx` boundaries
+8. **TDD** : tests written alongside hooks and components; 51 unit tests passing
 
 ## Getting started
 
@@ -46,16 +46,16 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Commands
 
-| Command              | Description                      |
-|----------------------|----------------------------------|
-| `npm run dev`        | Start Next.js dev server         |
-| `npm test`           | Run Vitest unit tests            |
-| `npm run test:watch` | Watch mode                       |
-| `npm run test:coverage` | Coverage report               |
-| `npm run test:e2e`   | Playwright E2E (needs dev server) |
-| `npm run typecheck`  | TypeScript type check            |
-| `npm run db:seed`    | Re-seed the database             |
-| `npm run db:studio`  | Open Prisma Studio               |
+| Command                 | Description                       |
+| ----------------------- | --------------------------------- |
+| `npm run dev`           | Start Next.js dev server          |
+| `npm test`              | Run Vitest unit tests             |
+| `npm run test:watch`    | Watch mode                        |
+| `npm run test:coverage` | Coverage report                   |
+| `npm run test:e2e`      | Playwright E2E (needs dev server) |
+| `npm run typecheck`     | TypeScript type check             |
+| `npm run db:seed`       | Re-seed the database              |
+| `npm run db:studio`     | Open Prisma Studio                |
 
 ## Project structure
 

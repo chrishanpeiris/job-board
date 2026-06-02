@@ -24,26 +24,28 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      {/*
-        Blocking theme script — runs before React hydrates so there is zero
-        flash of the wrong theme. Reads localStorage['theme'], falls back to
-        'dark' (our default), then toggles the 'dark' class on <html>.
-        suppressHydrationWarning on <html> above silences the class mismatch
-        warning between server (no class) and client (class added by script).
-      */}
-      <script dangerouslySetInnerHTML={{ __html: `
-        (function() {
-          try {
-            var saved = localStorage.getItem('theme');
-            var valid = ['light', 'dark', 'system'];
-            var theme = valid.includes(saved) ? saved : 'dark';
-            var resolved = theme === 'system'
-              ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
-              : theme;
-            document.documentElement.classList.toggle('dark', resolved === 'dark');
-          } catch (e) {}
-        })();
-      `}} />
+      <head>
+        {/*
+          Blocking theme script — runs before React hydrates so there is zero
+          flash of the wrong theme. Reads localStorage['theme'], falls back to
+          'dark' (our default), then toggles the 'dark' class on <html>.
+          suppressHydrationWarning on <html> above silences the class mismatch
+          warning between server (no class) and client (class added by script).
+        */}
+        <script dangerouslySetInnerHTML={{ __html: `
+          (function() {
+            try {
+              var saved = localStorage.getItem('theme');
+              var valid = ['light', 'dark', 'system'];
+              var theme = valid.includes(saved) ? saved : 'dark';
+              var resolved = theme === 'system'
+                ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+                : theme;
+              document.documentElement.classList.toggle('dark', resolved === 'dark');
+            } catch (e) {}
+          })();
+        `}} />
+      </head>
       <body className={inter.className}>
         <Providers>
           <Header />
